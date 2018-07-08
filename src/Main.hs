@@ -11,6 +11,8 @@ import Foundation
 
 main :: IO ()
 main = do
-    tnextid <- newTVarIO 1
-    tstore <- newTVarIO []
-    warp 3000 $ App tnextid tstore
+    -- tnextid <- newTVarIO 1
+    -- tstore <- newTVarIO []
+    tstore <- atomically $ newTVar mempty
+    tident <- atomically $ newTVar 0
+    warp 3000 $ App tident tstore

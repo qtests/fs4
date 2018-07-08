@@ -31,7 +31,8 @@ library
                 ,  conduit-extra
                 ,  resourcet
                 ,  blaze-markup
-                ,  shakespeare 
+                ,  shakespeare
+                ,  containers
                 
 
 executable fs4
@@ -54,3 +55,4 @@ executable fs4
                     ,  resourcet
                     ,  blaze-markup
                     ,  shakespeare 
+                    ,  containers

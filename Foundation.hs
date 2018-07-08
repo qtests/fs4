@@ -16,12 +16,15 @@ import Text.Hamlet
 import Yesod
 import Yesod.Default.Util
 
+import Data.IntMap
+
 -- show
 -- type StoredFile = (Text, ByteString)
 -- type Store = [StoredFile]
 -- data App = App (TVar Store)
 data StoredFile = StoredFile !Text !ByteString
-type Store = [(Int, StoredFile)]
+-- type Store = [(Int, StoredFile)]
+type Store = IntMap StoredFile
 data App = App (TVar Int) (TVar Store)
 
 instance Yesod App where
@@ -44,19 +47,23 @@ getNextId (App tnextId _) = do
 getList :: Handler [(Int, StoredFile)]
 getList = do
     App _ tstore <- getYesod
-    liftIO $ readTVarIO tstore
+    -- liftIO $ readTVarIO tstore
+    store <- liftIO $ readTVarIO tstore
+    return $ Data.IntMap.toList store
 
 addFile :: App -> StoredFile -> Handler ()
 addFile app@(App _ tstore) file =
     liftIO . atomically $ do
-        nextId <- getNextId app
-        modifyTVar tstore $ \ files -> (nextId, file) : files
+        ident <- getNextId app
+        -- modifyTVar tstore $ \ files -> (nextId, file) : files
+        modifyTVar tstore $ Data.IntMap.insert ident file
 
 -- getById :: Text -> Handler ByteString
 getById :: Int -> Handler StoredFile
 getById ident = do
     App _ tstore <- getYesod
     store <- liftIO $ readTVarIO tstore
-    case lookup ident store of
+    -- case Prelude.lookup ident store of
+    case Data.IntMap.lookup ident store of
       Nothing -> notFound
       Just file -> return file
