@@ -3,9 +3,10 @@ $if null storedFiles
   <p>No files have been uploaded yet.
 $else
   <ul>
-    $forall (fileid, StoredFile filename _) <- storedFiles
+$#    $forall (fileid, StoredFile filename _) <- storedFiles
+    $forall (ident, StoredFile filename _ _) <- storedFiles
       <li>
-        <a href=@{PreviewR fileid}>#{filename}
+        <a href=@{PreviewR ident}>#{filename}
 <h2>Submit new file
 <form method=post action=@{HomeR} enctype=#{formEncType}>
   ^{formWidget}

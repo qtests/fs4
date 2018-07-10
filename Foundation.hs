@@ -22,7 +22,9 @@ import Data.IntMap
 -- type StoredFile = (Text, ByteString)
 -- type Store = [StoredFile]
 -- data App = App (TVar Store)
-data StoredFile = StoredFile !Text !ByteString
+-- data StoredFile = StoredFile !Text !ByteString
+data StoredFile = StoredFile !Text !Text !ByteString
+
 -- type Store = [(Int, StoredFile)]
 type Store = IntMap StoredFile
 data App = App (TVar Int) (TVar Store)

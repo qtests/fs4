@@ -22,7 +22,8 @@ import Foundation
 -- getPreviewR :: Text -> Handler Html
 getPreviewR :: Int -> Handler Html
 getPreviewR fileid = do
-    StoredFile filename bytes <- getById fileid
+    -- StoredFile filename bytes <- getById fileid
+    StoredFile filename _ bytes <- getById fileid
     defaultLayout $ do
         setTitle . toMarkup $ "File Processor - " `Text.append` filename
         previewBlock <- liftIO $ preview bytes

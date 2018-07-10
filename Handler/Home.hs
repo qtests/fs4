@@ -29,7 +29,8 @@ postHomeR = do
       FormSuccess fi -> do
         app <- getYesod
         fileBytes <- runResourceT $ fileSource fi $$ sinkLbs
-        addFile app $ StoredFile (fileName fi) fileBytes
+        -- addFile app $ StoredFile (fileName fi) fileBytes
+        addFile app $ StoredFile (fileName fi) (fileContentType fi) fileBytes
       _ -> return ()
     redirect HomeR
 
