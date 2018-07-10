@@ -21,6 +21,7 @@ library
                    Dispatch
                    Handler.Home
                    Handler.Preview
+                   Handler.Download
   build-depends:   base >= 4.7 && < 5
                 ,  yesod
                 ,  data-default
@@ -42,6 +43,7 @@ executable fs4
                        Dispatch
                        Handler.Home
                        Handler.Preview
+                       Handler.Download
   main-is:             Main.hs
   default-language:    Haskell2010
   build-depends:       base >= 4.7 && < 5
